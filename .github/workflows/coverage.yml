@@ -28,7 +28,7 @@ jobs:
         env:
           MYSQL_DATABASE: test
           MYSQL_ROOT_PASSWORD: typeorm
-          MYSQL_VERSION: mysql:8.0.23
+          MYSQL_IMAGE: mysql:8.0.23
           MYSQL_CONTAINER_NAME: mysql-container
           USE_SHELL: bash
 
