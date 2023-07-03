@@ -1,0 +1,65 @@
+name: CI
+
+on: [pull_request]
+
+env:
+  NODE_VERSION: 18.16.1
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        node-version: [16.17.0, 18.x, 19.x]
+        platform:
+          - os: ubuntu-latest
+            shell: bash
+
+    runs-on: ${{ matrix.platform.os }}
+    defaults:
+      run:
+        shell: ${{ matrix.platform.shell }}
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Use Nodejs ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Cache dependencies
+        uses: actions/cache@v3
+        with:
+          path: ${{ github.workspace }}/.yarn/cache
+          key: ${{ runner.os }}-yarn-${{ hashFiles('${{ github.workspace }}/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+
+      - name: Install yarn packages
+        run: yarn install --immutable
+
+      - name: Build
+        run: yarn build
+
+      - name: Lint
+        run: yarn lint
+
+      - name: Setup docker (missing on MacOS)
+        if: runner.os == 'macos'
+        run: |
+          brew install docker
+          colima start
+          sudo ln -sf $HOME/.colima/default/docker.sock /var/run/docker.sock
+
+      - name: Start MySQL container
+        uses: ./.github/actions/start-mysql-container
+        env:
+          MYSQL_DATABASE: test
+          MYSQL_ROOT_PASSWORD: typeorm
+          MYSQL_IMAGE: mysql:8.0.23
+          MYSQL_CONTAINER_NAME: mysql-container
+          USE_SHELL: ${{ matrix.platform.shell }}
+
+      - name: Test
+        run: yarn tests

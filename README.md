@@ -4,8 +4,8 @@
   <a href="https://github.com/pashak09/typeorm-fixturio/actions">
     <img src="https://github.com/pashak09/typeorm-fixturio/actions/workflows/test-on-push.yml/badge.svg" alt="test" />
   </a>
-  <a href="https://coveralls.io/github/pashak09/typeorm-fixturio?branch=main">
-    <img src="https://coveralls.io/repos/github/pashak09/typeorm-fixturio/badge.svg?branch=main" alt="Coverage Status" />
+  <a href="https://coveralls.io/github/pashak09/typeorm-fixturio?branch=master">
+    <img src="https://coveralls.io/repos/github/pashak09/typeorm-fixturio/badge.svg?branch=master" alt="Coverage Status" />
   </a>
   <a href="https://www.npmjs.com/package/typeorm-fixturio">
     <img src="https://img.shields.io/npm/v/typeorm-fixturio" alt="npm shield" />

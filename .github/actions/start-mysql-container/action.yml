@@ -1,0 +1,41 @@
+name: Start MySQL container
+
+description: Start MySQL container
+
+runs:
+  using: composite
+  steps:
+    - name: Start MySQL container
+      run: |
+        docker run --name ${{ env.MYSQL_CONTAINER_NAME }} \
+          -e MYSQL_ROOT_PASSWORD=${{ env.MYSQL_ROOT_PASSWORD }} \
+          -e MYSQL_DATABASE=${{ env.MYSQL_DATABASE }} \
+          -p 3306:3306 \
+          --health-cmd "mysqladmin ping" \
+          --health-interval 10s \
+          --health-timeout 5s \
+          --health-retries 10 \
+          -d ${{ env.MYSQL_IMAGE }} \
+          --character-set-server=utf8mb4 \
+          --collation-server=utf8mb4_unicode_ci \
+          --sql_mode="ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION"
+      shell: ${{ env.USE_SHELL }}
+
+    - name: Wait for MySQL to start
+      run: |
+        retries=20
+        while [ $retries -gt 0 ]; do
+          status=$(docker ps -f "name=${{ env.MYSQL_CONTAINER_NAME }}" --format "{{.Status}}")
+          echo $status
+          if [[ $status == *"healthy"* ]]; then
+            echo "MySQL container is up and running."
+            break
+          fi
+          retries=$((retries-1))
+          sleep 5
+        done
+        if [ $retries -eq 0 ]; then
+          echo "Timed out waiting for MySQL container to start."
+          exit 1
+        fi
+      shell: ${{ env.USE_SHELL }}
