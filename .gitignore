@@ -1,0 +1,5 @@
+node_modules
+.idea
+dist
+/tests/config/ormconfig.*.ts
+/coverage/

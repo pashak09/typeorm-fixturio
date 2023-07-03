@@ -1,0 +1,42 @@
+name: Update coverage
+
+on:
+  push:
+    branches:
+      - master
+
+env:
+  NODE_VERSION: 18.16.1
+
+jobs:
+  update-coverage:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Use Nodejs ${{ env.NODE_VERSION }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Install yarn packages
+        run: yarn install --immutable
+
+      - name: Start MySQL container
+        uses: ./.github/actions/start-mysql-container
+        env:
+          MYSQL_DATABASE: test
+          MYSQL_ROOT_PASSWORD: typeorm
+          MYSQL_VERSION: mysql:8.0.23
+          MYSQL_CONTAINER_NAME: mysql-container
+          USE_SHELL: bash
+
+      - name: Tests coverage
+        run: yarn tests:coverage
+
+      - name: Coveralls
+        uses: coverallsapp/github-action@master
+        with:
+          path-to-lcov: './coverage/lcov.info'
+          github-token: ${{ github.token }}
