@@ -2,7 +2,7 @@
 
 <p align="center">
   <a href="https://github.com/pashak09/typeorm-fixturio/actions">
-    <img src="https://github.com/pashak09/typeorm-fixturio/actions/workflows/ci/badge.svg" alt="test" />
+    <img src="https://github.com/pashak09/typeorm-fixturio/actions/workflows/ci.yml/badge.svg" alt="test" />
   </a>
   <a href="https://coveralls.io/github/pashak09/typeorm-fixturio?branch=master">
     <img src="https://coveralls.io/repos/github/pashak09/typeorm-fixturio/badge.svg?branch=master" alt="Coverage Status" />
