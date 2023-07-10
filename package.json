@@ -1,6 +1,6 @@
 {
   "name": "typeorm-fixturio",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "description": "TypeORM fixtures",
   "keywords": [
     "typeorm",
@@ -26,7 +26,7 @@
     "tests:coverage": "jest --coverage"
   },
   "dependencies": {
-    "fixturio": "^0.0.2",
+    "fixturio": "^0.0.4",
     "typeorm-extension": "^2.8.1"
   },
   "peerDependencies": {
