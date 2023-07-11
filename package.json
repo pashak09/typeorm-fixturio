@@ -1,6 +1,6 @@
 {
   "name": "typeorm-fixturio",
-  "version": "0.0.2",
+  "version": "0.0.9",
   "description": "TypeORM fixtures",
   "keywords": [
     "typeorm",
@@ -12,11 +12,11 @@
     "mysql",
     "postgresql"
   ],
-  "main": "dist/index.js",
+  "main": "index.js",
+  "types": "index.d.ts",
   "bin": {
-    "typeorm-fixturio": "dist/cli.js"
+    "typeorm-fixturio": "cli.js"
   },
-  "types": "dist/index.d.ts",
   "author": "pashak09",
   "license": "MIT",
   "scripts": {
@@ -26,7 +26,7 @@
     "tests:coverage": "jest --coverage"
   },
   "dependencies": {
-    "fixturio": "^0.0.8",
+    "fixturio": "^0.0.9",
     "typeorm-extension": "^2.8.1"
   },
   "peerDependencies": {
@@ -61,7 +61,7 @@
     "url": "https://github.com/pashak09/typeorm-fixturio"
   },
   "files": [
-    "dist/index.d.ts",
-    "dist/**/*.js"
+    "index.d.ts",
+    "**/*.js"
   ]
 }
