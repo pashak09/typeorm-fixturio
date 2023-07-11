@@ -1881,10 +1881,10 @@ find-up@^5.0.0:
     locate-path "^6.0.0"
     path-exists "^4.0.0"
 
-fixturio@^0.0.2:
-  version "0.0.2"
-  resolved "https://registry.yarnpkg.com/fixturio/-/fixturio-0.0.2.tgz#7f5641db650a162f572d23299dabcbf77e5a0e89"
-  integrity sha512-0o9w1QE8K+xzrkua/+RXvh3Is+u7fwYtIE3X2oyKP8o3iTaqBPPHA0sG0Dg3dpM1A5CiUQ2L93QdxSVv0zJCAA==
+fixturio@^0.0.8:
+  version "0.0.8"
+  resolved "https://registry.yarnpkg.com/fixturio/-/fixturio-0.0.8.tgz#d6e132e2cb7c1625e906aaf67fdcd03e56eff254"
+  integrity sha512-EIXR4BkvzAvjHoUBoxy2exunqc2+e1KY4n4jLk2rW1VvnpExS/gW4jyNuW9fJtIENZmZOxuuzCjHQx1B+2KD4w==
   dependencies:
     glob "^9.3.5"
 
