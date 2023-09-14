@@ -1,5 +1,4 @@
-import { DependencyInjectable, FixtureInterface, InjectDependency } from 'fixturio';
-import { EntityManager } from 'typeorm';
+import { FixtureInterface } from 'fixturio';
 
 import { User } from '../entity/User';
 
@@ -8,18 +7,10 @@ type UserFixtureResultOf = {
   readonly secondUser: User;
 };
 
-export class UserFixture implements FixtureInterface<UserFixtureResultOf>, DependencyInjectable {
-  constructor(private readonly entityManager: EntityManager) {}
-
-  getInjectDependencies(): readonly InjectDependency[] {
-    return [EntityManager];
-  }
-
+export class UserFixture implements FixtureInterface<UserFixtureResultOf> {
   async install(): Promise<UserFixtureResultOf> {
-    const firstUser = new User(1, 'user_1');
-    const secondUser = new User(2, 'user_2');
-
-    await this.entityManager.save([firstUser, secondUser]);
+    const firstUser = new User('user_1');
+    const secondUser = new User('user_2');
 
     return {
       firstUser,
