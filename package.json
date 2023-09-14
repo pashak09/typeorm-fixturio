@@ -26,7 +26,7 @@
     "tests:coverage": "jest --coverage"
   },
   "dependencies": {
-    "fixturio": "^0.0.9",
+    "fixturio": "^1.0.2",
     "typeorm-extension": "^2.8.1"
   },
   "peerDependencies": {
@@ -50,7 +50,7 @@
     "ts-jest": "^29.0.3",
     "ts-node": "^10.9.1",
     "tsc-alias": "^1.8.6",
-    "typeorm": "^0.3.11",
+    "typeorm": "^0.3.17",
     "typescript": "^5.1.3"
   },
   "engines": {

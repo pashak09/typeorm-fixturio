@@ -1,8 +1,10 @@
 import { resolve } from 'node:path';
+import { cwd } from 'node:process';
 
 import { containerImporter } from '@app/container/containerImporter';
 import { TypeOrmContainer } from '@app/container/TypeOrmContainer';
 import { Logger, LogLevel } from '@app/logger/Logger';
+import { entityResolver } from '@app/orm/entityResolver';
 import { FixtureContainer } from 'fixturio';
 import { CommandUtils } from 'typeorm/commands/CommandUtils';
 import { checkDatabase, createDatabase, dropDatabase } from 'typeorm-extension';
@@ -11,6 +13,7 @@ export type Options = {
   readonly recreate: boolean;
   readonly runMigration: boolean;
   readonly quiet: boolean;
+  readonly autoPersist?: boolean | undefined;
   readonly containerFile?: string | undefined;
   readonly dataSourceFile: string;
   readonly filePatterns: readonly string[];
@@ -20,12 +23,13 @@ export const runner = async ({
   dataSourceFile,
   recreate,
   runMigration,
+  autoPersist,
   filePatterns,
   containerFile,
   quiet,
 }: Options): Promise<void> => {
   const logger = new Logger(quiet ? LogLevel.ERROR : LogLevel.INFO);
-  const dataSource = await CommandUtils.loadDataSource(resolve(process.cwd(), dataSourceFile));
+  const dataSource = await CommandUtils.loadDataSource(resolve(cwd(), dataSourceFile));
 
   const databaseName =
     'replication' in dataSource.options && 'database' in dataSource.options.replication.master
@@ -58,18 +62,27 @@ export const runner = async ({
   logger.info('Start loading fixtures');
 
   try {
-    const fixtureContainer = new FixtureContainer({
+    const fixtureContainer = new FixtureContainer(
+      containerFile !== undefined
+        ? await containerImporter(containerFile)
+        : new TypeOrmContainer(dataSource)
+    );
+
+    const { loadedResults } = await fixtureContainer.installFixtures({
       filePatterns,
-      serviceContainer:
-        containerFile !== undefined
-          ? await containerImporter(containerFile)
-          : new TypeOrmContainer(dataSource),
+      rootDir: cwd(),
     });
 
-    await fixtureContainer.loadFiles();
-    await fixtureContainer.installFixtures();
-  } catch (err) {
-    throw err;
+    if (autoPersist === true) {
+      //it's important to save the fixtures in the right order
+      await dataSource.manager.transaction(async (): Promise<void> => {
+        for (const entity of entityResolver(loadedResults)) {
+          await dataSource.manager.save(entity);
+        }
+      });
+    }
+  } catch (error: unknown) {
+    throw error;
   } finally {
     await dataSource.destroy();
   }
