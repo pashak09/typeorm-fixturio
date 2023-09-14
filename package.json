@@ -22,6 +22,7 @@
   "scripts": {
     "lint": "eslint src",
     "build": "rimraf ./dist && tsc -p tsconfig.build.json && tsc-alias -p tsconfig.build.json",
+    "build:dts": "dts-bundle-generator -o ./dist/index.d.ts ./src/index.ts --project tsconfig.build.json",
     "tests": "jest",
     "tests:coverage": "jest --coverage"
   },
@@ -37,6 +38,7 @@
     "@types/node": "^18.16.1",
     "@typescript-eslint/eslint-plugin": "^5.48.0",
     "@typescript-eslint/parser": "^5.48.0",
+    "dts-bundle-generator": "^8.0.1",
     "eslint": "^8.31.0",
     "eslint-config-airbnb-typescript": "^17.0.0",
     "eslint-config-prettier": "^8.3.0",
