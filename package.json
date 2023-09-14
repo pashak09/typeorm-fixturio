@@ -1,6 +1,6 @@
 {
   "name": "typeorm-fixturio",
-  "version": "0.0.9",
+  "version": "1.0.2",
   "description": "TypeORM fixtures",
   "keywords": [
     "typeorm",
