@@ -1,2 +1,2 @@
 export * from 'fixturio';
-export * from './container/TypeOrmContainer';
+export { TypeOrmContainer } from '@app/container/TypeOrmContainer';

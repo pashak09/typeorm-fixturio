@@ -20,6 +20,7 @@ jobs:
 
       - run: yarn install --immutable
       - run: yarn build
+      - run: yarn build:dts
       - run: cp package.json README.md ./dist && cd dist && yarn publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
