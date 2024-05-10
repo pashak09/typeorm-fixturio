@@ -18,20 +18,20 @@ describe('containerImporter', () => {
     const invalidContainerFile = resolve(containersPath, 'invalidContainerProvider.ts');
 
     await expect(containerImporter(invalidContainerFile)).rejects.toThrow(
-      new ContainerImporterException('Exported file should provide a containerProvider function')
+      new ContainerImporterException('Exported file should provide a containerProvider function'),
     );
   });
 
   it('throws a ContainerImporterException when provided container does not implement ServiceContainerInterface', async () => {
     const notImplimentedServiceContainerInterfaceFile = resolve(
       containersPath,
-      'notImplementedServiceContainerInterface.ts'
+      'notImplementedServiceContainerInterface.ts',
     );
 
     await expect(containerImporter(notImplimentedServiceContainerInterfaceFile)).rejects.toThrow(
       new ContainerImporterException(
-        'Provided container should implement ServiceContainerInterface'
-      )
+        'Provided container should implement ServiceContainerInterface',
+      ),
     );
   });
 });

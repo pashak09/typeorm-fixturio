@@ -8,13 +8,13 @@ export function argsValidator(args: RawOptions): asserts args is Options {
 
   if (filePatterns === undefined) {
     throw new ArgsException(
-      'filePatterns is required. Please specify a ts config path `filePatterns=<filePatterns>`'
+      'filePatterns is required. Please specify a ts config path `filePatterns=<filePatterns>`',
     );
   }
 
   if (dataSourceFile === undefined) {
     throw new ArgsException(
-      'dataSourceFile is required. Please specify a ts config path `dataSourceFile=<dataSourceFile>`'
+      'dataSourceFile is required. Please specify a ts config path `dataSourceFile=<dataSourceFile>`',
     );
   }
 }

@@ -3,13 +3,13 @@ name: CI
 on: [pull_request]
 
 env:
-  NODE_VERSION: 18.16.1
+  NODE_VERSION: 20.13.1
 
 jobs:
   build:
     strategy:
       matrix:
-        node-version: [16.17.0, 18.x, 19.x]
+        node-version: [18.x, 20.x, 22.x]
         platform:
           - os: ubuntu-latest
             shell: bash
@@ -21,15 +21,15 @@ jobs:
 
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Use Nodejs ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
 
       - name: Cache dependencies
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: ${{ github.workspace }}/.yarn/cache
           key: ${{ runner.os }}-yarn-${{ hashFiles('${{ github.workspace }}/yarn.lock') }}
