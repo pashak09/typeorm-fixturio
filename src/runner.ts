@@ -65,7 +65,7 @@ export const runner = async ({
     const fixtureContainer = new FixtureContainer(
       containerFile !== undefined
         ? await containerImporter(containerFile)
-        : new TypeOrmContainer(dataSource)
+        : new TypeOrmContainer(dataSource),
     );
 
     const { loadedResults } = await fixtureContainer.installFixtures({

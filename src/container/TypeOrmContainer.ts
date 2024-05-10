@@ -9,13 +9,13 @@ export class TypeOrmContainer implements ServiceContainerInterface {
   }
 
   getService<TInput = unknown, TResult = TInput>(
-    typeOrToken: InjectDependency<TInput> | string
+    typeOrToken: InjectDependency<TInput> | string,
   ): TResult {
     const service = this.container[typeOrToken.toString()];
 
     if (service === undefined) {
       throw new Error(
-        `service ${typeOrToken} is not registered is the base container provided by typeorm-fixturio`
+        `service ${typeOrToken} is not registered is the base container provided by typeorm-fixturio`,
       );
     }
 

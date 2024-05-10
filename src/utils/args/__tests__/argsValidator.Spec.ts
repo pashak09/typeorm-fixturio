@@ -20,7 +20,7 @@ describe('argsValidator', () => {
 
     expect(() => argsValidator(args)).toThrow(ArgsException);
     expect(() => argsValidator(args)).toThrow(
-      'filePatterns is required. Please specify a ts config path `filePatterns=<filePatterns>`'
+      'filePatterns is required. Please specify a ts config path `filePatterns=<filePatterns>`',
     );
   });
 
@@ -29,7 +29,7 @@ describe('argsValidator', () => {
 
     expect(() => argsValidator(args)).toThrow(ArgsException);
     expect(() => argsValidator(args)).toThrow(
-      'dataSourceFile is required. Please specify a ts config path `dataSourceFile=<dataSourceFile>`'
+      'dataSourceFile is required. Please specify a ts config path `dataSourceFile=<dataSourceFile>`',
     );
   });
 });

@@ -10,7 +10,7 @@ export async function containerImporter(containerFile: string): Promise<ServiceC
 
   if (typeof containerProvider !== 'function') {
     throw new ContainerImporterException(
-      'Exported file should provide a containerProvider function'
+      'Exported file should provide a containerProvider function',
     );
   }
 
@@ -18,7 +18,7 @@ export async function containerImporter(containerFile: string): Promise<ServiceC
 
   if (typeof container.getService !== 'function') {
     throw new ContainerImporterException(
-      'Provided container should implement ServiceContainerInterface'
+      'Provided container should implement ServiceContainerInterface',
     );
   }
 
